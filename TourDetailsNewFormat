@@ -1,0 +1,37 @@
+function onOpen(e)
+ {
+
+  var lastrow = 0 ; 
+  //var HeaderArray = ['TOURNAMENT NAME',	'TOURNAMENT CATEGORY'	, 'TOURNAMENT EDITION' , 'TOURNAMENT YEAR' ,	'TOURNAMENT LEVEL' , 	'SPORTS',	'EVENTS', 'Events Gender Specific'	,'Event Type',	'AGE CATEGORY'	, 'AGE GROUP'	,'PLACE',	'CITY',	'STATE'	, 'COUNTRY']; 
+  var Tournaments = ['TOURNAMENT NAME',	'TOURNAMENT CATEGORY'	, 'TOURNAMENT EDITION' , 'TOURNAMENT YEAR' ,	'TOURNAMENT LEVEL' , 	'SPORTS',	'EVENTS', 'Events Gender Specific'	,'Event Type',	'AGE CATEGORY'	, 'AGE GROUP'	,'PLACE',	'CITY',	'STATE'	, 'COUNTRY']; 
+  var ss = SpreadsheetApp.getActiveSpreadsheet().getSheets();
+ for ( var j=0; j< ss.length; j++)
+  {
+          var data = ss[j].getDataRange().getValues();
+          lastrow = ss[j].getLastRow(); 
+          for (var i = 1; i < 100; i++) 
+          {
+              if(i!=lastrow)
+              {
+                Tournaments.push(data[i][2],data[i][4],'N/A',data[i][10],data[i][3],data[i][0],'N/A','N/A','N/A', data[i][4],data[i][6],data[i][11],'N/A','N/A','N/A'); 
+                
+                 
+              }
+                
+          }
+                         
+  }          
+        
+
+var ss = SpreadsheetApp.getActiveSpreadsheet();
+var first = ss.getSheetByName("newFormat");
+first.clear();
+var shite = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("newFormat"); 
+    for (var i = 0; i < Tournaments.length; i++) 
+    {
+    var row = Math.floor(i / 15) + 1;
+    var col = (i % 15) + 1;
+    shite.getRange(row, col).setValue(Tournaments[i]);
+    }
+
+}
